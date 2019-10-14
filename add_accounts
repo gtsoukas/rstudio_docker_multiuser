@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# The following file should countain user:password lines
+input="/secrets/accounts"
+
+while IFS= read -r line
+do
+  IFS=':' read -ra credentials <<< "$line"
+  NAME=${credentials[0]}
+  PSWD=${credentials[1]}
+  echo "Adding user $NAME ..."
+  useradd $NAME \
+    && echo "$NAME:$PSWD" | chpasswd \
+    && mkdir -p /home/$NAME \
+    && chown $NAME:$NAME /home/$NAME \
+    && addgroup $NAME staff
+done < "$input"

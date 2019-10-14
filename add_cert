@@ -1,0 +1,8 @@
+#!/usr/bin/with-contenv bash
+
+if [[ ! -z "${CERT_URL}" ]]; then
+  echo "Adding certificate from URL ${CERT_URL} ..."
+  cd /usr/local/share/ca-certificates/
+  wget ${CERT_URL}
+  update-ca-certificates
+fi
