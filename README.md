@@ -15,8 +15,9 @@ Create secret user credentials file:
 mkdir secrets
 touch secrets/accounts
 chmod 600 secrets/accounts
-echo "user1:passwd1" >> secrets/accounts
-echo "user2:passwd2" >> secrets/accounts
+echo "1001:user1:passwd1" >> secrets/accounts
+echo "1002:user2:passwd2" >> secrets/accounts
+echo "1003:user3:passwd3" >> secrets/accounts
 ```
 
 Build container image:

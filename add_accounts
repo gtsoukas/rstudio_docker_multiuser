@@ -1,15 +1,17 @@
 #!/bin/bash
 
-# The following file should countain user:password lines
+# The following file should contain laines of the form
+#   id:user:password
 input="/secrets/accounts"
 
 while IFS= read -r line
 do
   IFS=':' read -ra credentials <<< "$line"
-  NAME=${credentials[0]}
-  PSWD=${credentials[1]}
+  AID=${credentials[0]}
+  NAME=${credentials[1]}
+  PSWD=${credentials[2]}
   echo "Adding user $NAME ..."
-  useradd $NAME \
+  useradd --uid $AID --shell /bin/bash $NAME \
     && echo "$NAME:$PSWD" | chpasswd \
     && mkdir -p /home/$NAME \
     && chown $NAME:$NAME /home/$NAME \
